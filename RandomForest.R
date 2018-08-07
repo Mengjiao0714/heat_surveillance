@@ -6,10 +6,13 @@ library(e1071) ## Naive Bayes
 library(caret) ##ConfusionMatrix()
 library(randomForest) 
 ## read the data into R
+## the raw data include only two columns: Heat_Related_Illness=TRUE/FALSE indicates if it is heat related or not; CCUpdates show the
+## Chief Complaints description
 rawdata<-read.csv("heatdata_nb.csv",header=TRUE,na.strings=c("","NA"))
 rawdata=rawdata[-1]%>%
-  filter(is.na(CCUpdates)==FALSE)
-
+  filter(is.na(CCUpdates)==FALSE)  ## remove the empty lines
+  
+## look at the first 6 rows of the data
 head(rawdata)
 
 ## convert the logical variable to a factor (TRUE/FALSE)
@@ -52,6 +55,8 @@ heat_corpus_clean<-tm_map(heat_corpus_clean,stripWhitespace)
 ## create a document term matrix
 heat_dtm<-DocumentTermMatrix(heat_corpus_clean)
 dim(heat_dtm)
+## word cloud of the cleansed corpus
+wordcloud(heat_corpus_clean,min.freq=20,color=brewer.pal(5,"Dark2"),random.order=FALSE)
 
 ## prepare training and test data set
 set.seed(123)
@@ -73,7 +78,6 @@ heat_freq_words<-findFreqTerms(heat_dtm_train,5)
 ## preview of most frequent words, 621 terms with at least 5 occurances
 str(heat_freq_words)
 
-
 ## filtering the DTM (Document Term Matrix) to only contain words with at least 5 occurances
 ## reducing the features in the DTM
 heat_dtm_freq_train<-heat_dtm_train[,heat_freq_words]
@@ -83,8 +87,10 @@ heat_dtm_freq_test<-heat_dtm_test[,heat_freq_words]
 heatSparse=as.data.frame(as.matrix(heat_dtm_freq_train))
 colnames(heatSparse)=make.names(colnames(heatSparse))
 
+## train the model with Random Forest
 random_forest<-randomForest(heat_train_labels~.,data=heatSparse)
-
+## make the test data set
 test<-as.data.frame(as.matrix(heat_dtm_freq_test))
 predTestRF<-predict(random_forest,newdata=test,type="prob")[,2]
+## contigency table
 table(heat_test_labels,predTestRF>0.5)
