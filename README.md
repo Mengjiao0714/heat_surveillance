@@ -1,10 +1,6 @@
 # heat_surveillance
 This project works with the heat data from CDC's National Syndromic Surveillance Program (NSSP).
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Objective
 
 Extreme outdoor heat is associated with more illness and death than other weather-related exposures. Currently, we use query provided by CDC that defines a heat syndrome case, but there are quite a few false negatives, and missed some true positives.
