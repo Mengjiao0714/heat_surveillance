@@ -14,7 +14,7 @@ There are four main functions in this project: `heat_plot.R`,`NaiveBayes.R`,`Ran
 `heat_plot.R` will produce a graph that displays the number of emergency department visits due to exposure to natural heat in Kansas as shown below. The upper half shows the mean daily temperature from 2018-05-07 to 2018-07-16, and the lower half is the visit counts due to heat exposure.
 
 ```{r pressure, echo=FALSE, out.width = '80%'}
-knitr::include_graphics("Exposure_To_Heat_Kansas.jpg")
+knitr::include_graphics("https://github.com/Mengjiao0714/heat_surveillance/blob/master/Exposure_To_Heat_kansas.jpg")
 ```
 
 
