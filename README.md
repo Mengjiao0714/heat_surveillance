@@ -1,9 +1,5 @@
 # heat_surveillance
 This project works with the heat data from CDC's National Syndromic Surveillance Program (NSSP).
----
-title: "heat_surveillance"
-output: html_document
----
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
