@@ -4,15 +4,12 @@ library(RColorBrewer)
 library(wordcloud) ## wordcloud generator
 library(e1071) ## Naive Bayes
 library(caret) ##ConfusionMatrix()
-library(randomForest) 
+library(pROC) ## creat ROC and compute AUC
+library(randomForest)
 ## read the data into R
-## the raw data include only two columns: Heat_Related_Illness=TRUE/FALSE indicates if it is heat related or not; CCUpdates show the
-## Chief Complaints description
 rawdata<-read.csv("heatdata_nb.csv",header=TRUE,na.strings=c("","NA"))
 rawdata=rawdata[-1]%>%
-  filter(is.na(CCUpdates)==FALSE)  ## remove the empty lines
-  
-## look at the first 6 rows of the data
+  filter(is.na(CCUpdates)==FALSE)
 head(rawdata)
 
 ## convert the logical variable to a factor (TRUE/FALSE)
@@ -42,7 +39,7 @@ lapply(heat_corpus[1:7],as.character)
 ## convert to lowercase
 heat_corpus_clean<-tm_map(heat_corpus,content_transformer(tolower))
 ## remove numbers
-#heat_corpus_clean<-tm_map(heat_corpus_clean,content_transformer(removeNumbers))
+heat_corpus_clean<-tm_map(heat_corpus_clean,content_transformer(removeNumbers))
 ## remove stop words, i.e., to, or, but, and.
 heat_corpus_clean<-tm_map(heat_corpus_clean,removeWords,stopwords())
 ##remove punctutation, i.e "",.'``
@@ -52,11 +49,12 @@ heat_corpus_clean<-tm_map(heat_corpus_clean,stemDocument)
 ## tripe additional whitespaces
 heat_corpus_clean<-tm_map(heat_corpus_clean,stripWhitespace)
 
-## create a document term matrix
+## Create document term matrix
 heat_dtm<-DocumentTermMatrix(heat_corpus_clean)
 dim(heat_dtm)
+
 ## word cloud of the cleansed corpus
-wordcloud(heat_corpus_clean,min.freq=20,color=brewer.pal(5,"Dark2"),random.order=FALSE)
+wordcloud(heat_corpus_clean,min.freq=20,max.words=150,color=brewer.pal(5,"Dark2"),random.order=FALSE)
 
 ## prepare training and test data set
 set.seed(123)
@@ -83,14 +81,31 @@ str(heat_freq_words)
 heat_dtm_freq_train<-heat_dtm_train[,heat_freq_words]
 heat_dtm_freq_test<-heat_dtm_test[,heat_freq_words]
 
-##convert the document term matrix to a data frame
-heatSparse=as.data.frame(as.matrix(heat_dtm_freq_train))
+##### Random Forest
+## word "repeat" is removed since it causes issus (still working on it and havn't figured out yet)
+heatSparse=as.data.frame(as.matrix(heat_dtm_freq_train))%>%
+  select(-"repeat")
 colnames(heatSparse)=make.names(colnames(heatSparse))
 
-## train the model with Random Forest
+
+## fit random forest model
 random_forest<-randomForest(heat_train_labels~.,data=heatSparse)
-## make the test data set
-test<-as.data.frame(as.matrix(heat_dtm_freq_test))
-predTestRF<-predict(random_forest,newdata=test,type="prob")[,2]
-## contigency table
-table(heat_test_labels,predTestRF>0.5)
+## word "repeat" is removed since it causes issus (still working on it and havn't figured out yet)
+test<-as.data.frame(as.matrix(heat_dtm_freq_test))%>%
+  select(-"repeat")
+
+## predict for the test set
+RF_pred<-predict(random_forest,newdata=test,type="prob")[,2]
+
+## ROC and AUC
+ROCurve<-roc(heat_test_labels,RF_pred)
+plot(ROCurve)
+auc(ROCurve)
+
+## confusion matrix
+table(heat_test_labels,RF_pred>0.5)
+RF_pred=as.factor(RF_pred>0.5)
+## attention: the positive class is FALSE. So the sensitivity provide by confusionMatrix
+## is actually the specificity
+confusionMatrix(RF_pred,heat_test_labels,dnn=c("predicted","actual"))
+
