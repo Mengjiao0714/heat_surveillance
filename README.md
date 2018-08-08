@@ -17,10 +17,12 @@ There are four main functions in this project: `heat_plot.R`,`NaiveBayes.R`,`Ran
 
 `NaiveBayes.R`, `RandomForest.R` and `SVM.R` will select the heat related illness using Naive Bayes Classifier (NB), Random Forest, and Support Vector Machine (SVM) respectively. The following table shows the values of Sensitivity, Specificity, Accuracy, Precision and AUC performance metrics for the three classifiers.
 
-| First Header  | Second Header |
+| Classifier  | Sensitivity | Specificity | Accuracy | Precision | AUC|
 | ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+| Naive Bayes Classifier  | 0.9121 | 0.9725| 0.9658 | 0.8058 | 0.9423 |
+| Random Forest  |0.9011 | 0.9959| 0.9853 | 0.9647 | 0.971 |
+|Support Vector Machine| 0.5055| 0.9959
+
 
 
 We can see that **Random Forest** outperforms among the three classifiers with a high specificity 0.9959 and AUC 0.971. `NaiveBayes.rmd`, `RandomForest.rmd`, and `SVM.rmd` are Markdown files which show details and explanations of the three classifiers.
