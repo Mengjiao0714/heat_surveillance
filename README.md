@@ -23,6 +23,6 @@ There are four main functions in this project: `heat_plot.R`,`NaiveBayes.R`,`Ran
 | Random Forest       |0.9011 | 0.9959| 0.9853 | 0.9647 | 0.971 |
 |Support Vector Machine| 0.5055| 0.9959| 0.9414 | 0.9388 | 0.7507|
 
-We can see that **Random Forest** outperforms among the three classifiers with a high specificity *0.9959* and AUC *0.971*. `NaiveBayes.rmd`, `RandomForest.rmd`, and `SVM.rmd` are Markdown files which show details and explanations of the three classifiers.
+We can see that **Random Forest** outperforms among the three classifiers with a high specificity **0.9959** and AUC **0.971**. `NaiveBayes.rmd`, `RandomForest.rmd`, and `SVM.rmd` are Markdown files which show details and explanations of the three classifiers.
 
 `NB_SVM.ipynb` shows the implementation of NB and Support Vector Machine (SVM) in Python Jupyter Nootbook.
