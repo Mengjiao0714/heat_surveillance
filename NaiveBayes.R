@@ -4,15 +4,11 @@ library(RColorBrewer)
 library(wordcloud) ## wordcloud generator
 library(e1071) ## Naive Bayes
 library(caret) ##ConfusionMatrix()
-
+library(pROC)
 ## read the data into R
-## the raw data include only two columns: Heat_Related_Illness=TRUE/FALSE indicates if it is heat related or not; CCUpdates show the
-## Chief Complaints description
 rawdata<-read.csv("heatdata_nb.csv",header=TRUE,na.strings=c("","NA"))
 rawdata=rawdata[-1]%>%
-  filter(is.na(CCUpdates)==FALSE)  ## remove the empty lines
-  
-## look at the first 6 rows of the data
+  filter(is.na(CCUpdates)==FALSE)
 head(rawdata)
 
 ## convert the logical variable to a factor (TRUE/FALSE)
@@ -42,7 +38,7 @@ lapply(heat_corpus[1:7],as.character)
 ## convert to lowercase
 heat_corpus_clean<-tm_map(heat_corpus,content_transformer(tolower))
 ## remove numbers
-#heat_corpus_clean<-tm_map(heat_corpus_clean,content_transformer(removeNumbers))
+heat_corpus_clean<-tm_map(heat_corpus_clean,content_transformer(removeNumbers))
 ## remove stop words, i.e., to, or, but, and.
 heat_corpus_clean<-tm_map(heat_corpus_clean,removeWords,stopwords())
 ##remove punctutation, i.e "",.'``
@@ -53,11 +49,13 @@ heat_corpus_clean<-tm_map(heat_corpus_clean,stemDocument)
 heat_corpus_clean<-tm_map(heat_corpus_clean,stripWhitespace)
 
 
-## create a document term matrix
+
 heat_dtm<-DocumentTermMatrix(heat_corpus_clean)
 dim(heat_dtm)
+
+
 ## word cloud of the cleansed corpus
-wordcloud(heat_corpus_clean,min.freq=20,color=brewer.pal(5,"Dark2"),random.order=FALSE)
+wordcloud(heat_corpus_clean,min.freq=20,max.words=150,color=brewer.pal(5,"Dark2"),random.order=FALSE)
 
 ## prepare training and test data set
 set.seed(123)
@@ -84,10 +82,14 @@ str(heat_freq_words)
 ## reducing the features in the DTM
 heat_dtm_freq_train<-heat_dtm_train[,heat_freq_words]
 heat_dtm_freq_test<-heat_dtm_test[,heat_freq_words]
-dim(heat_dtm_freq_train)
+dim(heat_dtm_freq_test)
 
-str(heat_dtm_freq_train)
+str(heat_dtm_freq_test)
 
+
+###############################################################################
+###############################################################################
+## Naive Bayes Classifier
 convert_counts <- function(x){
   x <- ifelse(x > 0, "Yes", "No")
 }
@@ -100,14 +102,22 @@ heat_test <- apply(heat_dtm_freq_test, MARGIN = 2, convert_counts)
 str(heat_train)
 str(heat_test)
 
-## Naive Bayes Classifier
+## fit naive bayes classifier
 heat_classifier<-naiveBayes(heat_train,heat_train_labels,laplace=0)
-heat_test_pred<-predict(heat_classifier,heat_test)
-head(data.frame("actual"=heat_test_labels,"predicted"=heat_test_pred,"Chief_Complaint"=rawdata[-train_sample,2]))
 
-## contigency table, flip the order of TRUE and FALSE
-table(heat_test_pred,heat_test_labels)[2:1,2:1]
+## predict for the test set
+nb_pred<-predict(heat_classifier,heat_test)
 
-## There is one issue with the output from confusion Matrix. The sensitivity from the output is actually the specificity,
-## and specificity from the output is actually the sensitivity.
-##confusionMatrix(heat_test_pred,heat_test_labels,dnn=c("predicted","actual"))
+## look at the first 6 rows of CCUpdates and actual/predicted labels
+head(data.frame("actual"=heat_test_labels,"predicted"=nb_pred,"Chief_Complaint"=rawdata[-train_sample,2]))
+
+## confusion matrix
+table(nb_pred,heat_test_labels)
+## attention: the positive class is FALSE. So the sensitivity provide by confusionMatrix
+## is actually the specificity
+confusionMatrix(nb_pred,heat_test_labels,dnn=c("predicted","actual"))
+
+## ROC and AUC
+ROCurve<-roc(heat_test_labels,as.numeric(nb_pred))
+plot(ROCurve)
+auc(ROCurve)
