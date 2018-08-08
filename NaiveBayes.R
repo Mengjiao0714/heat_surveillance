@@ -48,11 +48,9 @@ heat_corpus_clean<-tm_map(heat_corpus_clean,stemDocument)
 ## tripe additional whitespaces
 heat_corpus_clean<-tm_map(heat_corpus_clean,stripWhitespace)
 
-
-
+## Create document term matrix
 heat_dtm<-DocumentTermMatrix(heat_corpus_clean)
 dim(heat_dtm)
-
 
 ## word cloud of the cleansed corpus
 wordcloud(heat_corpus_clean,min.freq=20,max.words=150,color=brewer.pal(5,"Dark2"),random.order=FALSE)
@@ -77,15 +75,10 @@ heat_freq_words<-findFreqTerms(heat_dtm_train,5)
 ## preview of most frequent words, 621 terms with at least 5 occurances
 str(heat_freq_words)
 
-
 ## filtering the DTM (Document Term Matrix) to only contain words with at least 5 occurances
 ## reducing the features in the DTM
 heat_dtm_freq_train<-heat_dtm_train[,heat_freq_words]
 heat_dtm_freq_test<-heat_dtm_test[,heat_freq_words]
-dim(heat_dtm_freq_test)
-
-str(heat_dtm_freq_test)
-
 
 ###############################################################################
 ###############################################################################
