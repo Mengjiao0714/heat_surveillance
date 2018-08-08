@@ -8,14 +8,28 @@ Extreme outdoor heat is associated with more illness and death than other weathe
 We are developing a machine learning algorithm--**Naives Bayes Classifier, Random Forest, Support Vector Machine**--that can select heat related illness more accurately.
 
 ## Main Functions
-
-There are four main functions in this project: `heat_plot.R`,`NaiveBayes.R`,`RandomForest.R`, and `NB_SVM.ipynb`.
+There are four main functions in this project: `heat_plot.R`,`NaiveBayes.R`,`RandomForest.R`, `SVM.R`.
 
 `heat_plot.R` will produce a graph that displays the number of emergency department visits due to exposure to natural heat in Kansas as shown below. The upper half shows the mean daily temperature from 2018-05-07 to 2018-07-16, and the lower half is the visit counts due to heat exposure.
 
 <img src="https://github.com/Mengjiao0714/heat_surveillance/blob/master/Exposure_To_Heat_kansas.jpg" width="700" height="800" />
 
 
-`NaiveBayes.R` and `RandomForest.R` will select the heat related illness using Naive Bayes Classifier (NB) and Random Forest, respectively. We currently got sensitivity 68% and specificity 97.2% from NB, and sensitivity 66.7% and specificity 97.7% from Random Forest. The F1 scores for NB and Random Forest are 0.864 and 0.885.
+`NaiveBayes.R`, `RandomForest.R` and `SVM.R` will select the heat related illness using Naive Bayes Classifier (NB), Random Forest, and Support Vector Machine (SVM) respectively. The following table shows the values of Sensitivity, Specificity, Accuracy, Precision and AUC performance metrics for the three classifiers.
+
+```{r,echo=FALSE}
+Classifier<-c("Naive Bayes Classifier","Random Forest","Support Vector Machine")
+Sensitivity<-c(0.9121,0.9011,0.5055)
+Specificity<-c(0.9725,0.9959,0.9959)
+Accuracy<-c(0.9658,0.9853,0.9414)
+Precision<-c(0.8058,0.9647,0.9388)
+AUC<-c(0.9423,0.971,0.7507)
+table<-as.data.frame(cbind(Classifier,Sensitivity,Specificity,Accuracy,Precision,AUC))
+
+print(table)
+```
+
+
+We can see that **Random Forest** outperforms among the three classifiers with a high specificity 0.9959 and AUC 0.971. `NaiveBayes.rmd`, `RandomForest.rmd`, and `SVM.rmd` are Markdown files which show details and explanations of the three classifiers.
 
 `NB_SVM.ipynb` shows the implementation of NB and Support Vector Machine (SVM) in Python Jupyter Nootbook.
