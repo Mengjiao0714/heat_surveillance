@@ -2,10 +2,9 @@ library(tm) ## text mining package, tm_map(), content_transformer()
 library(SnowballC) ##used for stemming, stemDocument
 library(RColorBrewer) 
 library(wordcloud) ## wordcloud generator
-library(e1071) ## Naive Bayes
 library(caret) ##ConfusionMatrix()
 library(pROC) ## creat ROC and compute AUC
-library(randomForest)
+
 ## read the data into R
 rawdata<-read.csv("heatdata_nb.csv",header=TRUE,na.strings=c("","NA"))
 rawdata=rawdata[-1]%>%
@@ -103,7 +102,7 @@ svm_pred<-predict(svm_model,newdata=test)
 table(heat_test_labels,svm_pred)
 ## attention: the positive class is FALSE. So the sensitivity provide by confusionMatrix
 ## is actually the specificity
-confusionMatrix(svm_pred,heat_test_labels,dnn=c("predicted","actual"))
+confusionMatrix(svm_pred,heat_test_labels,positive="TRUE",dnn=c("predicted","actual"))
 
 ## ROC and AUC
 ROCurve<-roc(heat_test_labels,as.numeric(svm_pred))
