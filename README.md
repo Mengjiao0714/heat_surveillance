@@ -5,7 +5,7 @@ This is the project for the National Syndromic Surveillance Program's (NSSP) Bio
 
 Extreme outdoor heat is associated with more illness and death than other weather-related exposures. Currently, we use query provided by CDC that defines a heat syndrome case, but there are quite a few false negatives, and missed some true positives.
 
-We developed machine learning algorithms--**Naives Bayes Classifier** (http://rpubs.com/Mengjiao_Wu/NaiveBayes), **Random Forest** (http://rpubs.com/Mengjiao_Wu/RandomForest), **Support Vector Machine**--that can select heat related illness more accurately.
+We developed machine learning algorithms--**Naives Bayes Classifier** (http://rpubs.com/Mengjiao_Wu/NaiveBayes), **Random Forest** (http://rpubs.com/Mengjiao_Wu/RandomForest), **Support Vector Machine** (https://github.com/Mengjiao0714/heat_surveillance/blob/master/SupportVectorMachine.ipynb)--that can select heat related illness more accurately.
 
 ## Main Functions
 There are four main functions in this project: `heat_plot.R`,`NaiveBayes.R`,`RandomForest.R`, `SVM.R`.
@@ -21,8 +21,7 @@ There are four main functions in this project: `heat_plot.R`,`NaiveBayes.R`,`Ran
 | ------------- | ------------- |----------- |-------|-----------|----|
 | Naive Bayes Classifier  | 0.9121 | 0.9725| 0.9658 | 0.8058 | 0.9423 |
 | Random Forest       |0.9011 | 0.9959| 0.9853 | 0.9647 | 0.971 |
-|Support Vector Machine| 0.5055| 0.9959| 0.9414 | 0.9388 | 0.7507|
+|Support Vector Machine| 0.8803| 0.9966| 0.9827 | 0.9717 | 0.938|
 
-We can see that **Random Forest** outperforms among the three classifiers with a high specificity **0.9959** and AUC **0.971**. `NaiveBayes.rmd`, `RandomForest.rmd`, and `SVM.rmd` are Markdown files which show details and explanations of the three classifiers.
+We can see that all three classifiers work well. **Random Forest** gives the highest AUC 0.971 and highest accuracy of 0.9853. **Support Vector Machine** provides the highest specificity 0.9966 and highest precision 0.9717. **Naive Bayes** run the fastest among the three classifiers. 
 
-`NB_SVM.ipynb` shows the implementation of NB and Support Vector Machine (SVM) in Python Jupyter Nootbook.
