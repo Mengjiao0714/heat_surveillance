@@ -6,7 +6,7 @@ library(e1071) ## Naive Bayes
 library(caret) ##ConfusionMatrix()
 library(pROC)
 ## read the data into R
-rawdata<-read.csv("heatdata_nb.csv",header=TRUE,na.strings=c("","NA"))
+rawdata<-read.csv("heatdata.csv",header=TRUE,na.strings=c("","NA"))
 rawdata=rawdata[-1]%>%
   filter(is.na(CCUpdates)==FALSE)
 head(rawdata)
