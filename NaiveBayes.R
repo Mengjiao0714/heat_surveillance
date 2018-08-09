@@ -108,7 +108,7 @@ head(data.frame("actual"=heat_test_labels,"predicted"=nb_pred,"Chief_Complaint"=
 table(nb_pred,heat_test_labels)
 ## attention: the positive class is FALSE. So the sensitivity provide by confusionMatrix
 ## is actually the specificity
-confusionMatrix(nb_pred,heat_test_labels,dnn=c("predicted","actual"))
+confusionMatrix(nb_pred,heat_test_labels,positive="TRUE",dnn=c("predicted","actual"))
 
 ## ROC and AUC
 ROCurve<-roc(heat_test_labels,as.numeric(nb_pred))
