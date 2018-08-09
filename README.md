@@ -5,7 +5,7 @@ This is the project for the National Syndromic Surveillance Program's (NSSP) Bio
 
 Extreme outdoor heat is associated with more illness and death than other weather-related exposures. Currently, we use query provided by CDC that defines a heat syndrome case, but there are quite a few false negatives, and missed some true positives.
 
-We developed machine learning algorithms--**Naives Bayes Classifier** (http://rpubs.com/Mengjiao_Wu/NaiveBayes), **Random Forest** (http://rpubs.com/Mengjiao_Wu/RandomForest), **Support Vector Machine** (https://github.com/Mengjiao0714/heat_surveillance/blob/master/SupportVectorMachine.ipynb)--that can select heat related illness more accurately.
+We developed machine learning algorithms--**Naives Bayes Classifier** (http://rpubs.com/Mengjiao_Wu/NaiveBayes), **Random Forest** (http://rpubs.com/Mengjiao_Wu/RandomForest), **Support Vector Machine**--that can select heat related illness more accurately.
 
 ## Main Functions
 There are four main functions in this project: `heat_plot.R`,`NaiveBayes.R`,`RandomForest.R`, `SVM.R`.
