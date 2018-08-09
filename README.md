@@ -8,14 +8,14 @@ Extreme outdoor heat is associated with more illness and death than other weathe
 We developed machine learning algorithms--**Naives Bayes Classifier** (http://rpubs.com/Mengjiao_Wu/NaiveBayes), **Random Forest** (http://rpubs.com/Mengjiao_Wu/RandomForest), **Support Vector Machine**--that can select heat related illness more accurately.
 
 ## Main Functions
-There are four main functions in this project: `heat_plot.R`,`NaiveBayes.R`,`RandomForest.R`, `SVM.R`.
+There are four main functions in this project: `heat_plot.R`,`NaiveBayes.R`,`RandomForest.R`, `SupportVectorMachine.ipynb`.
 
 `heat_plot.R` will produce a graph that displays the number of emergency department visits due to exposure to natural heat in Kansas as shown below. The upper half shows the mean daily temperature from 2018-05-07 to 2018-07-16, and the lower half is the visit counts due to heat exposure.
 
 <img src="https://github.com/Mengjiao0714/heat_surveillance/blob/master/Exposure_To_Heat_kansas.jpg" width="700" height="800" />
 
 
-`NaiveBayes.R`, `RandomForest.R` and `SVM.R` will select the heat related illness using Naive Bayes Classifier (NB), Random Forest, and Support Vector Machine (SVM) respectively. The following table shows the values of Sensitivity, Specificity, Accuracy, Precision and AUC performance metrics for the three classifiers.
+`NaiveBayes.R`, `RandomForest.R` and `SupportVectorMachine.ipynb` will select the heat related illness using Naive Bayes Classifier (NB), Random Forest, and Support Vector Machine (SVM) respectively. The following table shows the values of Sensitivity, Specificity, Accuracy, Precision and AUC performance metrics for the three classifiers.
 
 | Classifier  | Sensitivity | Specificity | Accuracy | Precision | AUC|
 | ------------- | ------------- |----------- |-------|-----------|----|
