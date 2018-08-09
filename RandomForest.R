@@ -107,5 +107,5 @@ table(heat_test_labels,RF_pred>0.5)
 RF_pred=as.factor(RF_pred>0.5)
 ## attention: the positive class is FALSE. So the sensitivity provide by confusionMatrix
 ## is actually the specificity
-confusionMatrix(RF_pred,heat_test_labels,dnn=c("predicted","actual"))
+confusionMatrix(RF_pred,heat_test_labels,positive="TRUE",dnn=c("predicted","actual"))
 
