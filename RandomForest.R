@@ -82,13 +82,13 @@ heat_dtm_freq_test<-heat_dtm_test[,heat_freq_words]
 
 ##### Random Forest
 ## word "repeat" is removed since it causes issus (still working on it and havn't figured out yet)
-heatSparse=as.data.frame(as.matrix(heat_dtm_freq_train))%>%
+train=as.data.frame(as.matrix(heat_dtm_freq_train))%>%
   select(-"repeat")
-colnames(heatSparse)=make.names(colnames(heatSparse))
+colnames(train)=make.names(colnames(train))
 
 
 ## fit random forest model
-random_forest<-randomForest(heat_train_labels~.,data=heatSparse)
+random_forest<-randomForest(heat_train_labels~.,data=train)
 ## word "repeat" is removed since it causes issus (still working on it and havn't figured out yet)
 test<-as.data.frame(as.matrix(heat_dtm_freq_test))%>%
   select(-"repeat")
