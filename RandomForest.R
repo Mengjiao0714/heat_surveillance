@@ -2,7 +2,6 @@ library(tm) ## text mining package, tm_map(), content_transformer()
 library(SnowballC) ##used for stemming, stemDocument
 library(RColorBrewer) 
 library(wordcloud) ## wordcloud generator
-library(e1071) ## Naive Bayes
 library(caret) ##ConfusionMatrix()
 library(pROC) ## creat ROC and compute AUC
 library(randomForest)
