@@ -1,5 +1,5 @@
 # heat_surveillance
-This project works with the heat data from CDC's National Syndromic Surveillance Program (NSSP).
+This is the project for the National Syndromic Surveillance Program's (NSSP) BioSense Platform. Data from this platform are emergency department records.
 
 ## Objective
 
