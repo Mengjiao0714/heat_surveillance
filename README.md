@@ -17,11 +17,11 @@ There are four main functions in this project: `heat_plot.R`,`NaiveBayes.R`,`Ran
 
 `NaiveBayes.R`, `RandomForest.R` and `SupportVectorMachine.ipynb` will select the heat related illness using Naive Bayes Classifier (NB), Random Forest, and Support Vector Machine (SVM) respectively. The following table shows the values of Sensitivity, Specificity, Accuracy, Precision and AUC performance metrics for the three classifiers.
 
-| Classifier  | Sensitivity | Specificity | Accuracy | Precision | AUC|
-| ------------- | ------------- |----------- |-------|-----------|----|
-| Naive Bayes Classifier  | 0.9121 | 0.9725| 0.9658 | 0.8058 | 0.9423 |
-| Random Forest       |0.9011 | 0.9959| 0.9853 | 0.9647 | 0.971 |
-|Support Vector Machine| 0.8803| 0.9966| 0.9827 | 0.9717 | 0.938|
+| Classifier  | Sensitivity | Specificity | Accuracy | Precision | F1 Score | AUC|
+| ------------- | ------------- |----------- |-------|-----------|----------|----|
+| Naive Bayes Classifier  | 0.9121 | 0.9725| 0.9658 | 0.8058 | 0.8557  |0.9423 |
+| Random Forest       |0.9011 | 0.9959| 0.9853 | 0.9647 |  0.9318| 0.971 |
+|Support Vector Machine| 0.8803| 0.9966| 0.9827 | 0.9717 |   0.9237 | 0.938|
 
 We can see that all three classifiers work well. **Random Forest** gives the highest AUC 0.971 and highest accuracy of 0.9853. **Support Vector Machine** provides the highest specificity 0.9966 and highest precision 0.9717. **Naive Bayes** run the fastest among the three classifiers. 
 
