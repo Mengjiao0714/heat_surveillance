@@ -5,7 +5,7 @@ The data used in this project is from **E**lectronic **S**urveillance **S**ystem
 
 From the Query Portal in ESSENCE, we select **Facility Location (Full Details)** under Datasourse and set Hospital State equals **Kansas**. This query will select all Emergency Department records in Kansas in a particular day or time range by specifying different Start Date and End Date. We call it Count Data. If we further set CC and DD Category equals **Heat Related Illness v2**, we obtain the emergency records due to exposure to heat. We call it Heat Data.
 
-The following code shows how we load the data into R by providing the URL from ESSENCE. There are about 195 varialbes in the original dataset, and we extract three variables we are interested in: `C_Biosense_ID, ChiefComplaintUpdates, and Diagnosis_Combo`. Then we combine ChiefComplaintUpdates and Diagnosis_Combo into one text description variable called `CCUpdates`. It works for both Count Data and Heat Data.
+The following code shows how we load the data into R by providing the URL from ESSENCE. There are about 195 varialbes in the original dataset, and we extract three variables we are interested in: `C_Biosense_ID`, `ChiefComplaintUpdates`, and `Diagnosis_Combo`. Then we combine ChiefComplaintUpdates and Diagnosis_Combo into one text description variable called `CCUpdates`. It works for both Count Data and Heat Data.
 
 ```
 user_pass <- "mwu01:235711Wmj!"
