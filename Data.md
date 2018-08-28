@@ -8,7 +8,7 @@ From the Query Portal in ESSENCE, we select **Facility Location (Full Details)**
 The following code shows how we load the data into R by providing the URL from ESSENCE. There are about 195 varialbes in the original dataset, and we extract three variables we are interested in: `C_Biosense_ID`, `ChiefComplaintUpdates`, and `Diagnosis_Combo`. Then we combine ChiefComplaintUpdates and Diagnosis_Combo into one text description variable called `CCUpdates`. It works for both Count Data and Heat Data.
 
 ```
-user_pass <- "mwu01:235711Wmj!"
+user_pass <- "username:password!"
 essenceURL <- ""
 df <- getURL(essenceURL, ssl.verifypeer = FALSE, followlocation = TRUE, userpwd = user_pass, httpauth = 1L)
 data<- read.csv(textConnection(df), strip.white=T, stringsAsFactors=F)
