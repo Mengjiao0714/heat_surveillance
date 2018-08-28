@@ -17,7 +17,7 @@ data=data%>%
   mutate(CCUpdates=paste(ChiefComplaintUpdates, Diagnosis_Combo, sep=";"))
 ```
 
-Then we create a variable called Heat_Related_Illness which indicates if it is a TRUE/FALSE heat related illness by checking if C_BioSense_ID from the Heat Data matches C_BioSense_ID from the Count Data using the `%in%` function.
+Then we create a variable called Heat_Related_Illness which indicates if it is a **&TRUE/FALSE** heat related illness by checking if C_BioSense_ID from the Heat Data matches C_BioSense_ID from the Count Data using the `%in%` function.
 
 One more issue with the data: less than 1% cases are TRUE heat related illness. That means if we predict all cases as FALSE the overall accuracy can still be as high as 99%. Thus we increase the percentage of TRUE cases in the dataset by randomly select say, M FALSE cases, so that the ratio of FALSE to TRUE is around 9/1.
 
