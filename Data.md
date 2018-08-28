@@ -22,3 +22,10 @@ Then we create a variable called Heat_Related_Illness which indicates if it is a
 One more issue with the data: less than 1% cases are TRUE heat related illness. That means if we predict all cases as FALSE the overall accuracy can still be as high as 99%. Thus we increase the percentage of TRUE cases in the dataset by randomly select say, M FALSE cases, so that the ratio of FALSE to TRUE is around 9/1.
 
 Finally, we filter the dataset and show only the two varaibles we are interested in: **Heated_Related_Illness** indicating if it is a TRUE/FALSE heat related illness, **CCUpdates** which shows the combination of chief complaint text and diagnosis combo text.
+Here is an example of what the data looks like:  
+
+<br>
+<div style="width:1000px">
+![Data Set](https://imgur.com/a/kqFZTkv)
+</div>
+<br>  
